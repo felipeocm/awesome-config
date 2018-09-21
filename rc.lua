@@ -305,8 +305,7 @@ globalkeys = gears.table.join(
     awful.key({ "Control", "Mod1" }, "n", function () awful.util.spawn("nautilus") end),
     awful.key({}, "#122", function () awful.util.spawn("amixer -D pulse sset Master 10%-") end),
     awful.key({}, "#123", function () awful.util.spawn("amixer -D pulse sset Master 10%+") end),
-    awful.key({}, "#156", function () awful.util.spawn("amixer -D pulse sset Master 0%") end),
-    awful.key({}, "#172", function () awful.util.spawn("amixer -D pulse sset Master 60%") end),
+    awful.key({}, "#156", function () awful.util.spawn("amixer -D pulse sset Master toogle") end),
 
     --Pedro layout mod
     awful.key({ modkey, }, "0", function ()
