@@ -299,13 +299,14 @@ globalkeys = gears.table.join(
         {description = "go back", group = "client"}),
 
     -- Pedro
-    awful.key({ "Control", "Mod1" }, "l", function () awful.util.spawn("gnome-screensaver-command --lock") end),
+    awful.key({ "Control", "Mod1" }, "l", function () awful.util.spawn("xscreensaver-command -lock") end),
     awful.key({ "Control", "Mod1" }, "s", function () awful.util.spawn("subl") end),
     awful.key({ "Control", "Mod1" }, "c", function () awful.util.spawn("chromium") end),
     awful.key({ "Control", "Mod1" }, "n", function () awful.util.spawn("nautilus") end),
+    awful.key({ "Control", "Mod1" }, "m", function () awful.util.spawn("spotify") end),
     awful.key({}, "#122", function () awful.util.spawn("amixer -D pulse sset Master 10%-") end),
     awful.key({}, "#123", function () awful.util.spawn("amixer -D pulse sset Master 10%+") end),
-    awful.key({}, "#121", function () awful.util.spawn("amixer -D pulse sset Master toogle") end),
+    awful.key({}, "#121", function () awful.util.spawn("amixer -D pulse sset Master toggle") end),
 
     --Pedro layout mod
     awful.key({ modkey, }, "0", function ()
@@ -315,67 +316,31 @@ globalkeys = gears.table.join(
            tag:view_only()
         end
       end),
-    awful.key({ modkey, }, "-", function ()
-      local screen = awful.screen.focused()
-      local tag = screen.tags[11]
-      if tag then
-         tag:view_only()
-      end
-    end),
+     awful.key({ modkey, }, "-", function ()
+        local screen = awful.screen.focused()
+        local tag = screen.tags[11]
+        if tag then
+           tag:view_only()
+        end
+      end),
 
-    awful.key({ modkey, "Control" }, "0",
-        function ()
-            local screen = awful.screen.focused()
-            local tag = screen.tags[10]
-            if tag then
-               awful.tag.viewtoggle(tag)
-            end
-        end),   
-    awful.key({ modkey, "Control" }, "-",
-        function ()
-            local screen = awful.screen.focused()
-            local tag = screen.tags[11]
-            if tag then
-               awful.tag.viewtoggle(tag)
-            end
-        end),
-    awful.key({ modkey, "Shift" }, "0",
-              function ()
-                  if client.focus then
-                      local tag = client.focus.screen.tags[0]
-                      if tag then
-                          client.focus:move_to_tag(tag)
-                      end
-                 end
-              end),      
-    awful.key({ modkey, "Shift" }, "-",
-              function ()
-                  if client.focus then
-                      local tag = client.focus.screen.tags[11]
-                      if tag then
-                          client.focus:move_to_tag(tag)
-                      end
-                 end
-              end),
-
-    awful.key({ modkey, "Control", "Shift" }, "0",
-              function ()
-                  if client.focus then
-                      local tag = client.focus.screen.tags[10]
-                      if tag then
-                          client.focus:toggle_tag(tag)
-                      end
-                  end
-              end),      
-    awful.key({ modkey, "Control", "Shift" }, "-",
-              function ()
-                  if client.focus then
-                      local tag = client.focus.screen.tags[11]
-                      if tag then
-                          client.focus:toggle_tag(tag)
-                      end
-                  end
-              end),
+     awful.key({ modkey, "Control" }, "0",
+          function ()
+              local screen = awful.screen.focused()
+              local tag = screen.tags[10]
+              if tag then
+                 awful.tag.viewtoggle(tag)
+              end
+          end),
+      awful.key({ modkey, "Shift" }, "-",
+                function ()
+                    if client.focus then
+                        local tag = client.focus.screen.tags[11]
+                        if tag then
+                            client.focus:move_to_tag(tag)
+                        end
+                   end
+                end),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
@@ -657,6 +622,6 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
-awful.util.spawn_with_shell("pgrep gnome-screensaver || gnome-screensaver")
+awful.util.spawn_with_shell("pgrep xscreensaver|| xscreensaver -no-splash")
 awful.util.spawn_with_shell("pgrep nm-applet || nm-applet")
 
